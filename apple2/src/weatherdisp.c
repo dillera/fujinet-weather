@@ -107,7 +107,7 @@ void decode_description(char code, char *buf) {
 		case 95:
 		case 96:
 		case 99:
-		 	strcpy(buf, "Thunerstorm");
+		 	strcpy(buf, "Thunderstorm");
             break;
 		default:
 		 	strcpy(buf, "???");
