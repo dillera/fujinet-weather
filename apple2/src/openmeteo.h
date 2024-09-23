@@ -1,11 +1,11 @@
-#ifndef	OPENMETRO_H
-#define OPENMETRO_H
+#ifndef	OPENMETEO_H
+#define OPENMETEO_H
 #include <stdbool.h>
 
 // function
 void get_location(LOCATION *loc);
 
-// OpenMetro 
+// OpenMeteo 
 void setup_omurl();
 char *time_str(char *buf);
 bool om_geocoding(LOCATION *loc, char *city);

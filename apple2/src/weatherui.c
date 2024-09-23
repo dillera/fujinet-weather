@@ -2,10 +2,16 @@
 #include	<stdlib.h>
 #include	<string.h>
 #include	<conio.h>
+#include	<peekpoke.h>
 #include	"weatherdefs.h"
 #include	"openmeteo.h"
 #include	"hgrtext.h"
 
+#define	PROGRESS_ADDR	0x628 + 12	// y = 12 x = 12
+#define	PROGRESS_MAX	5
+#define	DOT_SET			0x20
+#define	DOT_FLASH		0x60
+#define	DOT_CLEAR		0xa0
 
 extern LOCATION current;
 
@@ -83,4 +89,24 @@ void disp_message(char *msg) {
 	clrscr();
 	gotoxy(0,10);
 	cprintf("%s", msg);
+}
+
+void progress_dots(char p) {
+	char	i;
+	char	value;
+
+	for (i=0; i < 5; i++) {
+		if (p > i) {
+			value = DOT_CLEAR;
+		}
+#ifdef APPLE2
+		else if (p == i) {
+			value = DOT_FLASH;
+		}
+#endif
+		else {
+			value = DOT_SET;
+		}
+		POKE(PROGRESS_ADDR + (i*2), value); 
+	}
 }

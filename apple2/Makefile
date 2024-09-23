@@ -13,7 +13,7 @@ PROGRAM := weather
 #FUJINET-BUILD-TOOLS_DIR := ../../fujinet-build-tools
 
 export FUJINET_BUILD_TOOLS_DIR := ../../fujinet-build-tools
-export FUJINET_LIB_VERSION := 4.3.1
+export FUJINET_LIB_VERSION := 4.7.1
 
 
 # Check if FUJINET_BUILD_TOOLS_DIR is set to a real directory

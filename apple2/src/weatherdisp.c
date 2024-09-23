@@ -219,6 +219,8 @@ void disp_weather(WEATHER *wi) {
 	char row;
 	char time_buf[LINE_LEN];
 	char prbuf[LINE_LEN];
+	char tmp_year[5];
+	char len_buf;
 	long localtime;
 	long visi;
 	char wind_idx;
@@ -231,7 +233,6 @@ void disp_weather(WEATHER *wi) {
 
 	init_hgr();
 	clear_hires_page1();
-//
 
 // line 8 name
 	sprintf(prbuf, "%s, %s", wi->name, wi->country); 
@@ -242,6 +243,10 @@ void disp_weather(WEATHER *wi) {
 	localtime = wi->td + wi->tz;
     strcpy(prbuf, ctime((const unsigned long *)&localtime));
 	prbuf[strlen(prbuf)-1] = 0x00;
+	len_buf = strlen(prbuf);
+	strncpy(tmp_year, &prbuf[len_buf-4], 4);
+	tmp_year[4] = 0x00;
+	sprintf(&prbuf[len_buf-8], " %s", tmp_year);
 	set_colrow(padding_center(prbuf), 0);
 	draw_string(prbuf);
 
@@ -334,7 +339,7 @@ void disp_weather(WEATHER *wi) {
 //
 void disp_forecast(FORECAST *fc, char p) {
 	char	i;
-	char	page;
+	char	start_idx;
 	char    tdbuf[LINE_LEN];
 	char	prbuf[QUARTER_LEN];
 	long	localtime;
@@ -346,7 +351,7 @@ void disp_forecast(FORECAST *fc, char p) {
 	current_screen = 2;
 	current_forecast_page = p;
 		
-	page = (p-1) * 4;
+	start_idx = (p-1) * 4;
 	init_hgr();
 	clear_hires_page1();
 
@@ -362,7 +367,7 @@ void disp_forecast(FORECAST *fc, char p) {
 
 	for (i=0; i<=3; i++) {
 //   day         
-    	localtime = fc->day[i+page].td;
+    	localtime = fc->day[i+start_idx].td;
 		strcpy(tdbuf, ctime((const unsigned long *)&localtime));
     	strncpy(prbuf, (char *)&tdbuf[8], 2);
 		prbuf[2] = 0x00;
@@ -381,39 +386,39 @@ void disp_forecast(FORECAST *fc, char p) {
 		draw_string(prbuf);
 
 //   weather icon
-		draw_weather_icon(fc->day[i+page].icon, (i*10)+4, 4);
+		draw_weather_icon(fc->day[i+start_idx].icon, (i*10)+4, 4);
 //debug
 //		gotoxy((i*10)+4, 22);
-//		cprintf("#%2d", fc->day[i+page].icon);
+//		cprintf("#%2d", fc->day[i+start_idx].icon);
 
 //   max temp
-		sprintf(prbuf, "%s%s", fc->day[i+page].temp_max, temp_unit[unit_opt]);
+		sprintf(prbuf, "%s%s", fc->day[i+start_idx].temp_max, temp_unit[unit_opt]);
 		set_colrow((i*10)+3, 9);
 		draw_string(prbuf);
 
 //   min temp
-		sprintf(prbuf, "%s%s", fc->day[i+page].temp_min, temp_unit[unit_opt]);
+		sprintf(prbuf, "%s%s", fc->day[i+start_idx].temp_min, temp_unit[unit_opt]);
 		set_colrow((i*10)+3, 10);
 		draw_string(prbuf);
 
 //   wind degree
-    	wind_idx = atoi(fc->day[i+page].wind_deg) / 45;
-		sprintf(prbuf, "Wind:%s", wind_deg[i+page]);
+    	wind_idx = atoi(fc->day[i+start_idx].wind_deg) / 45;
+		sprintf(prbuf, "Wind:%s", wind_deg[wind_idx]);
 		set_colrow((i*10)+2, 14);
 		draw_string(prbuf);
 
 //   wind speed
-		sprintf(prbuf, "%s%s", fc->day[i+page].wind_speed, speed_unit[unit_opt]);
+		sprintf(prbuf, "%s%s", fc->day[i+start_idx].wind_speed, speed_unit[unit_opt]);
 		set_colrow((i*10)+2, 15);
 		draw_string(prbuf);
 
 //   uv index max
-		sprintf(prbuf, " %s ", fc->day[i+page].uv_index_max);
+		sprintf(prbuf, " %s ", fc->day[i+start_idx].uv_index_max);
 		set_colrow((i*10)+3, 12);
 		draw_string(prbuf);
 
 //   precipitation sum
-		sprintf(prbuf, "%s mm", fc->day[i+page].precipitation_sum);
+		sprintf(prbuf, "%s mm", fc->day[i+start_idx].precipitation_sum);
 		set_colrow((i*10)+4, 17);
 		draw_string(prbuf);
 

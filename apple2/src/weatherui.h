@@ -8,4 +8,5 @@ void change_location(LOCATION *loc);
 void disp_message(char *msg);
 void disp_nokey();
 char get_keyin();
+void progress_dots(char p);
 #endif

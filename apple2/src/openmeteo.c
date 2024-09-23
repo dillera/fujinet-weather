@@ -80,6 +80,8 @@ void get_om_info(LOCATION *loc, WEATHER *wi, FORECAST *fc) {
 // weather 1 query
 	setup_omurl(loc, om_tail_weather1);
 
+	progress_dots(0);
+
     network_open(omurl, OPEN_MODE_READ, OPEN_TRANS_NONE);
     err = network_json_parse(omurl);
     handle_err("om parse");
@@ -112,6 +114,8 @@ void get_om_info(LOCATION *loc, WEATHER *wi, FORECAST *fc) {
 // weather 2 query
 	setup_omurl(loc, om_tail_weather2);
 
+	progress_dots(1);
+
     network_open(omurl, OPEN_MODE_READ, OPEN_TRANS_NONE);
     err = network_json_parse(omurl);
     handle_err("omurl parse 2");
@@ -135,7 +139,12 @@ void get_om_info(LOCATION *loc, WEATHER *wi, FORECAST *fc) {
 //  part 1
 	setup_omurl(loc, om_tail_forecast1);
 
+	progress_dots(2);
+
     network_open(omurl, OPEN_MODE_READ, OPEN_TRANS_NONE);
+
+	progress_dots(3);
+
     err = network_json_parse(omurl);
     handle_err("forecast 1 parse");
 
@@ -149,12 +158,19 @@ void get_om_info(LOCATION *loc, WEATHER *wi, FORECAST *fc) {
 //  part 2
 	setup_omurl(loc, om_tail_forecast2);
 
+	progress_dots(4);
+
     network_open(omurl, OPEN_MODE_READ, OPEN_TRANS_NONE);
     err = network_json_parse(omurl);
     handle_err("forecast 2 parse");
 
+	progress_dots(5);
+
 	set_forecast2(fc);
+
 	network_close(omurl);	// of forecast part 2
+
+	progress_dots(6);
 }
 //
 // set forecast data part1
