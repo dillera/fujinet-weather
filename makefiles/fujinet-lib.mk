@@ -1,4 +1,13 @@
-FUJINET_LIB_VERSION := 4.2.0
+###################################################################
+# fujinet-lib
+###################################################################
+ifeq ($(DEBUG),true)
+    $(info >Starting fujinet-lib.mk)
+endif
+
+$(info >>>> Using FUJINET_LIB_VERSION=$(FUJINET_LIB_VERSION))
+# set FN_LIB_VERSION in your local Makefile
+
 
 FUJINET_LIB = ../_libs
 FUJINET_LIB_VERSION_DIR = $(FUJINET_LIB)/$(FUJINET_LIB_VERSION)-$(CURRENT_TARGET)
@@ -18,7 +27,7 @@ FUJINET_LIB_DOWNLOAD_FILE = $(FUJINET_LIB)/fujinet-lib-$(CURRENT_TARGET)-$(FUJIN
 			echo "ERROR: Unable to find file $(FUJINET_LIB_DOWNLOAD_URL)"; \
 			exit 1; \
 		fi; \
-		echo "Downloading fujinet-lib for $(TARGETLIST) version $(FUJINET_LIB_VERSION) from $(FUJINET_LIB_DOWNLOAD_URL)"; \
+		echo "Downloading fujinet-lib for $(CURRENT_TARGET) version $(FUJINET_LIB_VERSION) from $(FUJINET_LIB_DOWNLOAD_URL)"; \
 		mkdir -p $(FUJINET_LIB); \
 		curl -sL $(FUJINET_LIB_DOWNLOAD_URL) -o $(FUJINET_LIB_DOWNLOAD_FILE); \
 		echo "Unzipping to $(FUJINET_LIB)"; \
