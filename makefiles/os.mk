@@ -1,6 +1,10 @@
 ###################################################################
 # Platform Mapping, OS specifics, and Emulator settings
 ###################################################################
+ifeq ($(DEBUG),true)
+    $(info >>Starting os.mk)
+endif
+
 
 ifeq ($(CURRENT_TARGET),)
 $(error Missing value for CURRENT_TARGET)
