@@ -219,6 +219,8 @@ void disp_weather(WEATHER *wi) {
 	char row;
 	char time_buf[LINE_LEN];
 	char prbuf[LINE_LEN];
+	char tmp_year[5];
+	char len_buf;
 	long localtime;
 	long visi;
 	char wind_idx;
@@ -231,7 +233,6 @@ void disp_weather(WEATHER *wi) {
 
 	init_hgr();
 	clear_hires_page1();
-//
 
 // line 8 name
 	sprintf(prbuf, "%s, %s", wi->name, wi->country); 
@@ -242,6 +243,10 @@ void disp_weather(WEATHER *wi) {
 	localtime = wi->td + wi->tz;
     strcpy(prbuf, ctime((const unsigned long *)&localtime));
 	prbuf[strlen(prbuf)-1] = 0x00;
+	len_buf = strlen(prbuf);
+	strncpy(tmp_year, &prbuf[len_buf-4], 4);
+	tmp_year[4] = 0x00;
+	sprintf(&prbuf[len_buf-8], " %s", tmp_year);
 	set_colrow(padding_center(prbuf), 0);
 	draw_string(prbuf);
 
