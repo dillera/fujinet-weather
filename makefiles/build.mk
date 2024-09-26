@@ -133,7 +133,7 @@ ifeq ($(DEBUG),true)
 endif
 
 # allow for application specific config
--include ../application.mk
+-include ./application.mk
 
 
 
