@@ -68,19 +68,7 @@ Please create all forks and enhancements to this application here via forks and 
 # Usage and Application Notes
 
 ### Apple 2
-- Apple2 builds fine but it requires a API key from OpenWeatherMap
-  - https://home.openweathermap.org
-  - You need to setup an account, request on-by-one and get an API Key
-  - You then must upgrade that key to be "Base Plan" - which is free for first 1000 calls
-    - you will need to register your name a credit card to get the plan
-
- This isn't optimal but it's what required right now in June 2024, other API plans will be explored.
-
-  - Put the contents of the KEY (32 bytes long) into a file named '56000101.key'.
-  - Save the file in the /FujiNet directory of your Fujinet SD card.
-    - full path would be: SD/FujiNet/56000101.key
-    - Note capitalization
-
+- Apple2 builds and uses the OpenMetro free weather API (works globally)
 
  ## Other Platforms
 
